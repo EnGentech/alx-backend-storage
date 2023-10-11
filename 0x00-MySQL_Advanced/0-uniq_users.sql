@@ -1,4 +1,4 @@
---creating a user table if it does not exist
+-- Creates table users with variables id, email and name
 CREATE TABLE IF NOT EXISTS `users` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `email` VARCHAR(255) NOT NULL UNIQUE,
