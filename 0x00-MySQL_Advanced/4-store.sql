@@ -9,5 +9,5 @@ BEGIN
     -- Decrease the quantity of the item associated with the new order
     UPDATE items
     SET quantity = quantity - NEW.number
-    WHERE name = NEW.number;
-END;
+    WHERE name = NEW.item_name;
+END $$
