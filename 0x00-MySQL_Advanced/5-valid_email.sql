@@ -1,15 +1,11 @@
 -- triger an even when theres an update on an email
 
-DROP TRIGGER IF EXISTS reset_email;
-DELIMITER //
-CREATE TRIGGER reset_email
-BEFORE UPDATE ON users
-FOR EACH ROW
-BEGIN
-    IF OLD.email != NEW.email THEN
-        SET NEW.valid_email = 0;
-    ELSE
-        SET NEW.valid_email = NEW.valid_email;
-    END IF;
-END //
-DELIMITER ;
+drop trigger if exists validate_email
+delimiter $$
+create trigger validate_email 
+before update on users for each row
+begin
+    if old.email <> new.email then
+    set new.valid_email = 0;
+end if;
+end $$
