@@ -1,4 +1,4 @@
--- created a procedure with three argument
+-- created a procedure with three argument 
 describe projects;
 
 delimiter $$
