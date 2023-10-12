@@ -8,7 +8,6 @@ begin
 if new.email <> old.email then
 set new.valid_email = 1;
 else
-set new.valid_email = 0;
+set new.valid_email = new.valid_email;
 end if;
 end $$
-
