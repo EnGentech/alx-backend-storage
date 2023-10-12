@@ -5,9 +5,7 @@ delimiter $$
 create trigger validate_email 
 before update on users for each row
 begin
-if new.email != old.email then
-set new.valid_email = 0;
-else
-set new.valid_email = new.valid_email;
+if new.email <> old.email then
+set new.valid_email = 1;
 end if;
 end $$
