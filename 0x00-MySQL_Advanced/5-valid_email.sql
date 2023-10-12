@@ -6,6 +6,6 @@ create trigger validate_email
 before update on users for each row
 begin
     if old.email <> new.email then
-        set new.valid_email = 0;
+        set new.valid_email = 1;
 end if;
 end $$
