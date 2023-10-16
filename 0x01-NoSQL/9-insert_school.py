@@ -5,5 +5,5 @@
 def insert_school(mongo_collection, **kwargs):
     """function to insert key value: data in mongo_collection"""
     mongo_collection.insert_one(kwargs)
-    return mongo_collection._id
+    return mongo_collection.inserted_id
 # Coded by EnGentech
