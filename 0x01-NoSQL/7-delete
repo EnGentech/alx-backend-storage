@@ -1,0 +1,6 @@
+// delete all data from collection corresponding to the input
+
+db.school.delete(
+    {name:'Holberton school'},
+    {multi: true}
+)
