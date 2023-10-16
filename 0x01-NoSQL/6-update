@@ -1,5 +1,5 @@
 // update collection based on criteria
 
-db.school.update(
+db.school.updateMany(
     {name:'Holberton school'}, {$set:{address:"972 Mission street"}}
 )
