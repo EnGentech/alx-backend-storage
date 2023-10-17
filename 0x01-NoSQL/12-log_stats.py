@@ -4,24 +4,24 @@
 from pymongo import MongoClient
 
 
-if __name__ == "__main__":
-    client = MongoClient('mongodb://127.0.0.1:27017')
-    nginx = client.logs.nginx
-    total_doc = nginx.count_documents({})
-    get = nginx.count_documents({"method": {"$eq": "GET"}})
-    post = nginx.count_documents({"method": {"$eq": "POST"}})
-    put = nginx.count_documents({"method": {"$eq": "PUT"}})
-    patch = nginx.count_documents({"method": {"$eq": "PATCH"}})
-    delete = nginx.count_documents({"method": {"$eq": "DELETE"}})
-    both = nginx.count_documents({"$and": [
-                                          {"method": {"$eq": "GET"}},
-                                          {"path": {"$eq": "/status"}}
-                                          ]})
-    print('{} logs'.format(total_doc))
+def nginx_stats_check():
+    """provides some stats about Nginx logs stored in MongoDB:"""
+    client = MongoClient()
+    collection = client.logs.nginx
+
+    doc_count = collection.count_documents({})
+    print('{} logs'.format(doc_count))
+
+    methods_list = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print("Methods:")
-    print('\tmethod GET: {}'.format(get))
-    print('\tmethod POST: {}'.format(post))
-    print('\tmethod PUT: {}'.format(put))
-    print('\tmethod PATCH: {}'.format(patch))
-    print('\tmethod DELETE: {}'.format(delete))
-    print('{} status check'.format(both))
+    for method in methods_list:
+        method_count = collection.count_documents({"method": method})
+        print('\tmethod {}: {}'.format(method, method_count))
+    status_count = collection.count_documents({
+        "method": "GET", "path": "/status"
+    })
+    print('{} status check'.format(status_count))
+
+
+if __name__ == "__main__":
+    nginx_stats_check()
