@@ -5,11 +5,12 @@
 import requests
 from functools import wraps
 from redis import Redis
+from typing import Callable
 
 r = Redis()
 
 
-def track_url_count(func):
+def track_url_count(func: callable) -> callable:
     """A decorator to track url"""
 
     @wraps(func)
