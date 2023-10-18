@@ -7,6 +7,7 @@ its python module known as redis
 
 from redis import Redis
 from uuid import uuid4
+from typing import Union
 
 
 class Cache:
@@ -19,7 +20,7 @@ class Cache:
         self._redis = Redis()
         self._redis.flushdb()
 
-    def store(self, data) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """store method"""
         key = str(uuid4())
         self._redis.set(key, data)
