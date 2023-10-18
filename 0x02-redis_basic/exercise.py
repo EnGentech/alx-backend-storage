@@ -22,7 +22,7 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
-def call_history(method: callable) -> Callable:
+def call_history(method: Callable) -> Callable:
     """Keep track of input and output values from user input"""
     key_input = f'{method.__qualname__}:inputs'
     key_output = f'{method.__qualname__}:outputs'
