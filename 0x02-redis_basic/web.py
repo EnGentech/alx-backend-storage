@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""A redis approach on a website"""
+
+
+import requests
+from functools import wraps
+from redis import Redis
+
+r = Redis()
+
+
+def track_url_count(func):
+    """A decorator to track url"""
+
+    @wraps(func)
+    def wrapper(url):
+        r.incr(f"count:{url}")
+        return func(url)
+
+    return wrapper
+
+
+@track_url_count
+def get_page(url: str) -> str:
+    """A function to graps url html content"""
+    response = requests.get(url)
+    html_content = response.text
+    r.setex(url, 10, html_content)
+    return html_content
