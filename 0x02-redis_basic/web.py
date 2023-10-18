@@ -5,12 +5,11 @@
 import requests
 from functools import wraps
 from redis import Redis
-from typing import Callable
 
 r = Redis()
 
 
-def track_url_count(func: callable) -> callable:
+def track_url_count(func):
     """A decorator to track url"""
 
     @wraps(func)
@@ -28,7 +27,10 @@ def get_page(url: str) -> str:
     r.setex(url, 10, html_content)
     return html_content
 
+
 if __name__ == "__main__":
-    test_url = "http://slowwly.robertomurray.co.uk/delay/10000/url/http://www.google.co.uk"
+    url = "http://slowwly.robertomurray.co.uk/delay/"
+    url2 = "10000/url/http://www.google.co.uk"
+    test_url = url + url2
     html = get_page(test_url)
     print(html)
