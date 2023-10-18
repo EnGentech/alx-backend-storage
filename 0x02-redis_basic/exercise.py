@@ -50,8 +50,10 @@ def replay(method: Callable) -> None:
 
 
 class Cache:
-    """A class to define redis operation"""
-    def _init_(self) -> None:
+    """
+    A class to define redis operation
+    """
+    def __init__(self) -> None:
         """A method for initialization"""
         self._redis = redis.Redis()
         self._redis.flushdb()
