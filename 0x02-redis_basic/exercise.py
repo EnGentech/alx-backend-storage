@@ -5,7 +5,7 @@ its python module known as redis
 """
 
 
-from redis import Redis
+import redis
 from functools import wraps
 from uuid import uuid4
 from typing import Union, Callable, Optional
@@ -50,13 +50,11 @@ def replay(method: Callable) -> None:
 
 
 class Cache:
-    """
-    A class to define redis operation
-    """
+    """A class to define redis operation"""
 
-    def _init_(self, host='localhost', port=6379, db=0) -> None:
+    def _init_(self) -> None:
         """A method for initialization"""
-        self._redis = Redis(host=host, port=port, db=db)
+        self._redis = redis.Redis()
         self._redis.flushdb()
 
     @count_calls
