@@ -54,9 +54,9 @@ class Cache:
     A class to define redis operation
     """
 
-    def __init__(self) -> None:
+    def __init__(self, redis: Redis = Redis()) -> None:
         """A method for initialization"""
-        self._redis = Redis()
+        self._redis = redis
         self._redis.flushdb()
 
     @count_calls
