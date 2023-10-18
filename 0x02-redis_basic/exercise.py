@@ -37,7 +37,7 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
-def replay(method: Callable) -> None:
+def replay(method: Callable) -> str:
     """Displays the history of calls of a particular function"""
     method_key = method.__qualname__
     inputs, outputs = method_key + ':inputs', method_key + ':outputs'
