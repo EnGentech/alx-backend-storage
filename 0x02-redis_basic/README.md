@@ -1,0 +1,1 @@
+This directory is solely about redis database
