@@ -32,9 +32,19 @@ class Cache:
         to be called when calling the function.
         """
         value = self._redis.get(key)
-        if fn:
-            return fn(value)
+        if value:
+            if fn:
+                return fn(value)
+            else:
+                return value
         else:
-            return value
+            return None
         
+    def get_str(self, key: str):
+        """An automated method that returns a string callable"""
+        return self.get(key, str)
+    
+    def get_int(self, key: int):
+        """An automated method that returns an int callable"""
+        return self.get(key, int)
     
