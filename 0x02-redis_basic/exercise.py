@@ -21,6 +21,7 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, *kwargs)
     return wrapper
 
+
 def call_history(method: callable) -> Callable:
     """Keep track of input and output values from user input"""
     key_input = f'{method.__qualname__}:inputs'
@@ -34,6 +35,7 @@ def call_history(method: callable) -> Callable:
         return stdOut
     return wrapper
 
+
 def replay(method: Callable) -> None:
     """Displays the history of calls of a particular function"""
     method_key = method.__qualname__
@@ -45,7 +47,6 @@ def replay(method: Callable) -> None:
     for inp, outp in list(IOTuple):
         attr, data = inp.decode("utf-8"), outp.decode("utf-8")
         print(f'{method_key}(*{attr}) -> {data}')
-        
 
 
 class Cache:
@@ -65,8 +66,10 @@ class Cache:
         key = str(uuid4())
         self._redis.set(key, data)
         return key
-    
-    def get(self, key: str, fn: Optional[Callable] = None) -> Union[str, bytes, int, float, None]:
+
+    annot = Union[str, bytes, int, float, None]
+
+    def get(self, key: str, fn: Optional[Callable] = None) -> annot:
         """A method that returns a redit data casted to user desired type
         The Optional annotation implies that the argument is not compulsary
         to be called when calling the function.
@@ -79,12 +82,11 @@ class Cache:
                 return value
         else:
             return None
-        
+
     def get_str(self, key: str):
         """An automated method that returns a string callable"""
         return self.get(key, str)
-    
+
     def get_int(self, key: str):
         """An automated method that returns an int callable"""
         return self.get(key, int)
-    
