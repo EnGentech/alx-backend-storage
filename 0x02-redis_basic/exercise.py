@@ -7,7 +7,7 @@ its python module known as redis
 
 from redis import Redis
 from uuid import uuid4
-from typing import Union
+from typing import Union, Callable, Optional
 
 
 class Cache:
@@ -25,4 +25,16 @@ class Cache:
         key = str(uuid4())
         self._redis.set(key, data)
         return key
+    
+    def get(self, key: str, fn: Optional[Callable]):
+        """A method that returns a redit data casted to user desired type
+        The Optional annotation implies that the argument is not compulsary
+        to be called when calling the function.
+        """
+        value = self._redis.get(key)
+        if fn:
+            return fn(value)
+        else:
+            return value
+        
     
